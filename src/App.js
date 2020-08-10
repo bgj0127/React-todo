@@ -29,6 +29,17 @@ const App = () => {
     [todos]
   );
 
+  const onToggle = useCallback(
+    id => {
+      setTodos(
+        todos.map(todo =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo
+        )
+      );
+    },
+    [todos]
+  );
+
   // 고윳값으로 사용될 id
   // ref를 사용하여 변수 담기
   const nextId = useRef(4);
@@ -48,7 +59,7 @@ const App = () => {
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
     </TodoTemplate>
   );
 };
